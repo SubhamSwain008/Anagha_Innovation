@@ -104,10 +104,10 @@ export default async function HomePage() {
           style={{
             position: "absolute",
             inset: 0,
-            background: "linear-gradient(180deg, rgba(0,0,0,0.08), rgba(0,0,0,0.25))",
+            background: "linear-gradient(160deg, rgba(0,0,0,0.42) 0%, rgba(0,0,0,0.60) 100%)",
             zIndex: 0,
-            backdropFilter: "blur(2px)",
-            WebkitBackdropFilter: "blur(6px)",
+            backdropFilter: "blur(3px)",
+            WebkitBackdropFilter: "blur(3px)",
           }}
         />
         {/* decorative circles */}
@@ -148,14 +148,26 @@ export default async function HomePage() {
               maxWidth: "720px",
             }}
           >
-            <div>
+            <div
+              style={{
+                background: "rgba(4, 10, 22, 0.50)",
+                backdropFilter: "blur(16px)",
+                WebkitBackdropFilter: "blur(16px)",
+                padding: "2.5rem 2.25rem",
+                borderRadius: "var(--radius-xl)",
+                border: "1px solid rgba(255,255,255,0.10)",
+                boxShadow: "0 8px 40px rgba(0,0,0,0.30)",
+              }}
+            >
               <span
-                className="badge"
+                className="badge hero-animate-badge"
                 style={{
                   marginBottom: "1rem",
-                  background: "color-mix(in srgb, var(--primary) 15%, transparent)",
-                  color: "var(--primary)",
+                  background: "rgba(22, 163, 74, 0.85)",
+                  color: "#ffffff",
                   fontWeight: 600,
+                  backdropFilter: "blur(4px)",
+                  WebkitBackdropFilter: "blur(4px)",
                 }}
               >
                 <Leaf size={14} /> Green Energy & EV Innovation
@@ -168,23 +180,26 @@ export default async function HomePage() {
                   letterSpacing: "-0.02em",
                   marginBottom: "1.25rem",
                 }}
+                className="hero-animate-title"
               >
                 {company?.tagline || "Engineering the Future of Sustainable Mobility"}
               </h1>
               <p
+                className="hero-animate-sub"
                 style={{
                   fontSize: "1.125rem",
-                  color: "var(--muted)",
+                  color: "rgba(255,255,255,0.88)",
                   lineHeight: 1.7,
                   maxWidth: "540px",
                   marginBottom: "2rem",
+                  textShadow: "0 1px 6px rgba(0,0,0,0.55)",
                 }}
               >
                 {company?.description
                   ? truncate(company.description, 200)
                   : "We design and build advanced EV components, solar charging systems, battery management solutions, and IoT-enabled power electronics for a cleaner tomorrow."}
               </p>
-              <div style={{ display: "flex", flexWrap: "wrap", gap: "0.75rem" }}>
+              <div className="hero-animate-cta" style={{ display: "flex", flexWrap: "wrap", gap: "0.75rem" }}>
                 <Link href="/products" className="btn btn-primary btn-lg">
                   Explore Products <ArrowRight size={18} />
                 </Link>

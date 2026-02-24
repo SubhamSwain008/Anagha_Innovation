@@ -468,6 +468,73 @@ img {
   animation: scaleIn 0.3s ease-out;
 }
 
+/* ── HERO ENTRANCE ANIMATIONS ──────────────────────────────────────── */
+
+@keyframes heroBadgeIn {
+  from { opacity: 0; transform: translateY(-12px) scale(0.92); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes heroTitleIn {
+  from { opacity: 0; transform: translateY(32px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes heroColorSweep {
+  from { background-position: 200% center; }
+  to   { background-position: 0% center; }
+}
+
+@keyframes heroSubIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes heroCtaIn {
+  from { opacity: 0; transform: translateY(16px) scale(0.96); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.hero-animate-badge {
+  animation: heroBadgeIn 0.55s cubic-bezier(0.2, 0.8, 0.2, 1) 0s both;
+}
+
+.hero-animate-title {
+  /* gradient sweeps left→right revealing primary green across white */
+  background: linear-gradient(
+    100deg,
+    #ffffff 0%,
+    #ffffff 15%,
+    var(--primary) 42%,
+    #ffffff 62%,
+    #ffffff 100%
+  );
+  background-size: 220% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  /* drop-shadow works with transparent text fill; text-shadow does not */
+  filter: drop-shadow(0 3px 12px rgba(0, 0, 0, 0.7));
+  animation:
+    heroTitleIn      0.75s cubic-bezier(0.2, 0.8, 0.2, 1) 0.12s both,
+    heroColorSweep   1.6s  cubic-bezier(0.4, 0, 0.2, 1)   0.12s both;
+}
+
+.hero-animate-sub {
+  animation: heroSubIn 0.65s ease-out 0.52s both;
+}
+
+.hero-animate-cta {
+  animation: heroCtaIn 0.6s cubic-bezier(0.2, 0.8, 0.2, 1) 0.78s both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-animate-badge,
+  .hero-animate-title,
+  .hero-animate-sub,
+  .hero-animate-cta { animation: none; }
+}
+
 /* ─── EMPTY STATE ───────────────────────────────────────────────────────────── */
 
 .empty-state {
