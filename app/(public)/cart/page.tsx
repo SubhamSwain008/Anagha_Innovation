@@ -1,6 +1,5 @@
 "use client";
 
-import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
 import { Trash2, Plus, Minus, ShoppingCart, ArrowRight, Cpu } from "lucide-react";
@@ -78,13 +77,12 @@ export default function CartPage() {
           <div
             style={{
               display: "grid",
-              gridTemplateColumns: "1fr",
               gap: "2rem",
             }}
-            className="lg:grid-cols-3"
+            className="grid-cols-1 lg:grid-cols-[2fr_1fr]"
           >
             {/* Items */}
-            <div style={{ gridColumn: "span 2" }}>
+            <div>
               <div
                 style={{
                   display: "flex",

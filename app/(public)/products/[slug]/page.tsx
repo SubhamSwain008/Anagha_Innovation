@@ -14,36 +14,45 @@ interface ProductPageProps {
 
 export async function generateMetadata({ params }: ProductPageProps): Promise<Metadata> {
   const { slug } = await params;
-  const product = await prisma.product.findUnique({
-    where: { slug },
-    select: { name: true, shortDescription: true, media: { take: 1, orderBy: { order: "asc" } } },
-  });
+  try {
+    const product = await prisma.product.findUnique({
+      where: { slug },
+      select: { name: true, shortDescription: true, media: { take: 1, orderBy: { order: "asc" } } },
+    });
 
-  if (!product) return { title: "Product Not Found" };
+    if (!product) return { title: "Product Not Found" };
 
-  return {
-    title: product.name,
-    description: product.shortDescription || `Explore ${product.name} by Anagha Innovation`,
-    openGraph: {
+    return {
       title: product.name,
-      description: product.shortDescription || undefined,
-      images: product.media[0]?.imageUrl ? [product.media[0].imageUrl] : undefined,
-    },
-  };
+      description: product.shortDescription || `Explore ${product.name} by Anagha Innovation`,
+      openGraph: {
+        title: product.name,
+        description: product.shortDescription || undefined,
+        images: product.media[0]?.imageUrl ? [product.media[0].imageUrl] : undefined,
+      },
+    };
+  } catch {
+    return { title: "Product" };
+  }
 }
 
 export default async function ProductDetailPage({ params }: ProductPageProps) {
   const { slug } = await params;
-  const product = await prisma.product.findUnique({
-    where: { slug },
-    include: {
-      category: { select: { id: true, name: true, slug: true } },
-      architecture: true,
-      features: { orderBy: { order: "asc" } },
-      specifications: { orderBy: { order: "asc" } },
-      media: { orderBy: { order: "asc" } },
-    },
-  });
+  let product = null;
+  try {
+    product = await prisma.product.findUnique({
+      where: { slug },
+      include: {
+        category: { select: { id: true, name: true, slug: true } },
+        architecture: true,
+        features: { orderBy: { order: "asc" } },
+        specifications: { orderBy: { order: "asc" } },
+        media: { orderBy: { order: "asc" } },
+      },
+    });
+  } catch (err) {
+    console.warn("ProductDetailPage: database unavailable:", (err as any)?.message ?? err);
+  }
 
   if (!product) return notFound();
 
@@ -131,10 +140,9 @@ export default async function ProductDetailPage({ params }: ProductPageProps) {
           <div
             style={{
               display: "grid",
-              gridTemplateColumns: "1fr",
               gap: "3rem",
             }}
-            className="md:grid-cols-2"
+            className="grid-cols-1 md:grid-cols-2"
           >
             {/* Gallery */}
             <MediaGallery media={product.media} productName={product.name} />

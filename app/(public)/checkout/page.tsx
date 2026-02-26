@@ -149,10 +149,9 @@ export default function CheckoutPage() {
           <div
             style={{
               display: "grid",
-              gridTemplateColumns: "1fr",
               gap: "2.5rem",
             }}
-            className="md:grid-cols-2"
+            className="grid-cols-1 md:grid-cols-2"
           >
             {/* Form */}
             <form
